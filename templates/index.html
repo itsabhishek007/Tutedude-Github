@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Form</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-slate-100 flex items-center justify-center p-4">
+
+  <div class="w-full max-w-lg bg-white rounded-xl shadow-md p-8">
+    <h1 class="text-2xl font-semibold text-slate-800">Get in touch</h1>
+    <p class="text-slate-500 mt-1 mb-6">Fill in your details and we'll get back to you.</p>
+
+    {% if error %}
+      <div class="mb-5 rounded-lg border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">
+        <strong class="font-semibold">Couldn't submit:</strong> {{ error }}
+      </div>
+    {% endif %}
+
+    <form action="/submit" method="POST" class="space-y-5">
+      <div>
+        <label for="name" class="block text-sm font-medium text-slate-700 mb-1">Name</label>
+        <input type="text" id="name" name="name" required
+               value="{{ form.name if form else '' }}"
+               class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-teal-600">
+      </div>
+
+      <div>
+        <label for="email" class="block text-sm font-medium text-slate-700 mb-1">Email</label>
+        <input type="email" id="email" name="email" required
+               value="{{ form.email if form else '' }}"
+               class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-teal-600">
+      </div>
+
+      <div>
+        <label for="phone" class="block text-sm font-medium text-slate-700 mb-1">Phone number</label>
+        <input type="tel" id="phone" name="phone" required pattern="[0-9]{10}"
+               title="Enter a 10-digit phone number"
+               value="{{ form.phone if form else '' }}"
+               class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-teal-600">
+      </div>
+
+      <div>
+        <label for="message" class="block text-sm font-medium text-slate-700 mb-1">Message</label>
+        <textarea id="message" name="message" rows="4" required
+                  class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-teal-600">{{ form.message if form else '' }}</textarea>
+      </div>
+
+      <button type="submit"
+              class="w-full rounded-lg bg-teal-700 px-4 py-2.5 font-medium text-white hover:bg-teal-800 focus:outline-none focus:ring-2 focus:ring-teal-600 focus:ring-offset-2">
+        Send message
+      </button>
+    </form>
+  </div>
+
+</body>
+</html>
